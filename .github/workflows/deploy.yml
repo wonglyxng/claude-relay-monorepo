@@ -41,6 +41,11 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           KV_NAMESPACE_ID: ${{ secrets.KV_NAMESPACE_ID }}
         run: |
+          echo "KV_NAMESPACE_ID length: ${#KV_NAMESPACE_ID}"
+          if [ -z "$KV_NAMESPACE_ID" ]; then
+            echo "❌ KV_NAMESPACE_ID is empty. Set GitHub secret KV_NAMESPACE_ID."
+            exit 1
+          fi
           # 创建统一部署目录
           mkdir -p deploy/assets
           
